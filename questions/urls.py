@@ -18,4 +18,6 @@ urlpatterns = [
     path("settings/", views.settings_view, name="settings"),
     path("settings/backups/create/", views.create_backup_view, name="create_backup"),
     path("settings/backups/<int:pk>/restore/", views.restore_backup_view, name="restore_backup"),
+    path("settings/data/export/", views.export_data_bundle_view, name="export_data_bundle"),
+    path("settings/data/import/", views.import_data_bundle_view, name="import_data_bundle"),
 ]

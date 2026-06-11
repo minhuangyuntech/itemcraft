@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.http import HttpResponse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -7,6 +8,7 @@ from django.utils import timezone
 from .forms import (
     AICommandForm,
     AIProviderSettingForm,
+    DataBundleImportForm,
     ImportUploadForm,
     OptionItemForm,
     QuestionForm,
@@ -16,6 +18,7 @@ from .forms import (
 from .ai_client import AICommandError, fetch_available_model_ids, load_available_models, run_ai_command, test_ai_setting
 from .ai_db_actions import apply_ai_database_actions, extract_json_actions
 from .backup import create_database_backup, restore_database_backup
+from .data_portability import export_content_bundle, import_content_bundle
 from .importer import import_questions
 from .models import AIProviderSetting, DatabaseBackup, ImportJob, OptionGroup, OptionItem, Question, ReferenceFile, ReferenceSource
 from .question_context import build_item_writing_reference_context, build_question_table_context
@@ -228,6 +231,7 @@ def settings_view(request):
         ai_setting = get_object_or_404(AIProviderSetting, pk=edit_ai_id)
     ai_form = AIProviderSettingForm(instance=ai_setting, prefix="ai")
     option_form = OptionItemForm(prefix="option")
+    data_import_form = DataBundleImportForm(prefix="data")
     if request.method == "POST":
         if "save_ai" in request.POST:
             ai_id = request.POST.get("ai_id")
@@ -307,6 +311,7 @@ def settings_view(request):
             "ai_settings": AIProviderSetting.objects.prefetch_related("models"),
             "preview_model_ids": preview_model_ids,
             "option_form": option_form,
+            "data_import_form": data_import_form,
             "option_groups": OptionGroup.objects.prefetch_related("items"),
             "backups": DatabaseBackup.objects.all()[:10],
         },
@@ -329,4 +334,25 @@ def restore_backup_view(request, pk):
         backup = get_object_or_404(DatabaseBackup, pk=pk)
         restore_database_backup(backup)
         messages.success(request, f"已還原備份 #{backup.id}。")
+    return redirect("questions:settings")
+
+
+@staff_member_required(login_url="questions:login")
+def export_data_bundle_view(request):
+    content = export_content_bundle()
+    response = HttpResponse(content, content_type="application/json; charset=utf-8")
+    response["Content-Disposition"] = 'attachment; filename="itemcraft-content-bundle.json"'
+    return response
+
+
+@staff_member_required(login_url="questions:login")
+def import_data_bundle_view(request):
+    if request.method == "POST":
+        form = DataBundleImportForm(request.POST, request.FILES, prefix="data")
+        if form.is_valid():
+            backup = create_database_backup("匯入資料包前自動備份", request.user)
+            imported = import_content_bundle(form.cleaned_data["file"])
+            messages.success(request, f"已匯入 {imported} 筆資料。匯入前已建立備份 #{backup.id}。")
+        else:
+            messages.warning(request, "資料匯入檔格式不正確，請重新選擇 JSON 檔。")
     return redirect("questions:settings")

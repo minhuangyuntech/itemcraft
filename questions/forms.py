@@ -98,6 +98,13 @@ class ImportUploadForm(forms.Form):
     )
 
 
+class DataBundleImportForm(forms.Form):
+    file = forms.FileField(
+        label="資料匯入檔",
+        widget=forms.FileInput(attrs={"class": "form-control", "accept": ".json"}),
+    )
+
+
 class AICommandForm(forms.Form):
     api_setting = forms.ModelChoiceField(
         label="API 來源",

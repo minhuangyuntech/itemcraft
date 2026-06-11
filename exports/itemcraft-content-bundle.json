@@ -1,0 +1,729 @@
+[
+{
+  "model": "questions.optiongroup",
+  "pk": 1,
+  "fields": {
+    "key": "type",
+    "name": "類型",
+    "created_at": "2026-06-09T08:11:48.496Z"
+  }
+},
+{
+  "model": "questions.optiongroup",
+  "pk": 2,
+  "fields": {
+    "key": "status",
+    "name": "狀態",
+    "created_at": "2026-06-09T08:11:48.510Z"
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 1,
+  "fields": {
+    "group": 1,
+    "name": "既有基礎",
+    "color": "",
+    "sort_order": 10,
+    "is_active": true
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 2,
+  "fields": {
+    "group": 1,
+    "name": "新命",
+    "color": "",
+    "sort_order": 20,
+    "is_active": false
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 3,
+  "fields": {
+    "group": 1,
+    "name": "調整",
+    "color": "",
+    "sort_order": 30,
+    "is_active": false
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 4,
+  "fields": {
+    "group": 2,
+    "name": "草稿",
+    "color": "",
+    "sort_order": 10,
+    "is_active": false
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 5,
+  "fields": {
+    "group": 2,
+    "name": "待審核",
+    "color": "",
+    "sort_order": 20,
+    "is_active": false
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 6,
+  "fields": {
+    "group": 2,
+    "name": "已通過",
+    "color": "",
+    "sort_order": 30,
+    "is_active": false
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 7,
+  "fields": {
+    "group": 2,
+    "name": "退回修改",
+    "color": "",
+    "sort_order": 40,
+    "is_active": false
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 8,
+  "fields": {
+    "group": 1,
+    "name": "既有進階",
+    "color": "",
+    "sort_order": 20,
+    "is_active": true
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 9,
+  "fields": {
+    "group": 1,
+    "name": "公務基礎",
+    "color": "",
+    "sort_order": 30,
+    "is_active": true
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 10,
+  "fields": {
+    "group": 1,
+    "name": "公務進階",
+    "color": "",
+    "sort_order": 40,
+    "is_active": true
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 11,
+  "fields": {
+    "group": 2,
+    "name": "調整",
+    "color": "",
+    "sort_order": 10,
+    "is_active": true
+  }
+},
+{
+  "model": "questions.optionitem",
+  "pk": 12,
+  "fields": {
+    "group": 2,
+    "name": "新命",
+    "color": "",
+    "sort_order": 20,
+    "is_active": true
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 1,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "title": "AI法規與資安風險管理命題總原則",
+    "content": "建立公務人員對AI應用之資安、個人資料保護、機敏資料防護、使用紀錄及合規控管之風險辨識與實務判斷能力。",
+    "sort_order": 10,
+    "is_active": true,
+    "created_at": "2026-06-09T13:26:28.358Z",
+    "updated_at": "2026-06-09T13:26:28.358Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 2,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "title": "24.資安規範與資料保護",
+    "content": "評估公務人員能否辨識雲端服務、機關核准之封閉式地端部署或內部系統在資料處理、儲存、日誌紀錄、對話紀錄保存及模型訓練或微調使用上之差異，並建立正確之資安與法遵意識。強化「影子AI(Shadow AI)」風險意識，提醒公務人員不得私自使用未經機關核准之外部AI工具處理涉及公務應保密、個人資料、營業秘密或未經機關同意公開之資訊。評測宜透過具體之禁止或不宜輸入範例(負面表列範例)，如未公開之採購底價、國民身分證統一編號、未發布之政策草案、內部簽辦意見或其他機關機敏資料，強化防範資料外洩風險之實務判斷能力。",
+    "sort_order": 24,
+    "is_active": true,
+    "created_at": "2026-06-09T13:26:28.359Z",
+    "updated_at": "2026-06-09T13:26:28.359Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 3,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "title": "25.AI法規與資安風險管理實務",
+    "content": "評估公務人員落實資安規範與風險管控之能力。導入AI國際管理體系(如 ISO 42001)觀念，評估其在公務流程中落實「事前風險評估」、「使用日誌稽核」與「合規性審查」等控管程序之實務素養。評估公務人員於AI相關採購、委外開發或服務導入時，是否能辨識契約應納入之AI使用管理要求，包括資料不得外流、訓練資料來源合法性、個人資料與機敏資料保護、使用日誌保存、模型更新管理、成果驗收、資安責任，以及承商應遵守機關AI使用規範與內控管理機制。",
+    "sort_order": 25,
+    "is_active": true,
+    "created_at": "2026-06-09T13:26:28.360Z",
+    "updated_at": "2026-06-09T13:26:28.360Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 4,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "title": "26.生成式AI使用限制與適法性",
+    "content": "評估公務人員能否依據「人工智慧基本法」及「行政院及所屬機關(構)使用生成式AI參考指引」等，判斷生成式AI使用之合法性與風險。公務人員應理解機密文書、未公開公務資訊、個人資料、營業秘密及未經機關同意公開之資料，不得輸入外部生成式AI服務；機密文書應由業務承辦人親自撰寫，不得使用生成式AI代為產製。AI 產出須經承辦人查證與專業判斷，不得未經確認即直接作成行政行為，亦不得作為公務決策之唯一依據。",
+    "sort_order": 26,
+    "is_active": true,
+    "created_at": "2026-06-09T13:26:28.360Z",
+    "updated_at": "2026-06-09T13:26:28.360Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 5,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "title": "AI應用下的倫理準則與智慧財產權實務命題總原則",
+    "content": "提升公務人員對AI生成內容可信度、使用揭露、智慧財產權、行政倫理、責任歸屬及人類監督之實務判斷能力。",
+    "sort_order": 10,
+    "is_active": true,
+    "created_at": "2026-06-09T13:29:51.672Z",
+    "updated_at": "2026-06-09T13:29:51.672Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 6,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "title": "27.最終問責與行政倫理",
+    "content": "評估公務人員應用AI之倫理與問責素養，明確理解AI僅為輔助工具，最終行政處分、公文核定與業務決策仍應由權責人員負責。評估公務人員能否在AI輔助決策過程中，進行公平性、不歧視及社會影響檢核，並確保生成內容符合我國法制、政策語彙、在地語境與文化價值，避免用語誤植、脈絡錯置或價值表述不當。",
+    "sort_order": 27,
+    "is_active": true,
+    "created_at": "2026-06-09T13:29:51.672Z",
+    "updated_at": "2026-06-09T13:29:51.672Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 7,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "title": "28.智財權、授權條款與使用揭露",
+    "content": "評估公務人員判斷AI輔助生成內容，如圖文、簡報、影音或文案之著作權、授權條款及使用風險之能力；能區辨AI僅作為輔助工具且有人類實質創意投入，與AI獨立生成且缺乏人類創作投入之差異。公務發布內容前，應檢核資料來源、授權條款、合理使用可能性、人格權、肖像權及第三方權利，並依AI參與程度進行適當揭露或標記。",
+    "sort_order": 28,
+    "is_active": true,
+    "created_at": "2026-06-09T13:29:51.672Z",
+    "updated_at": "2026-06-09T13:29:51.672Z"
+  }
+},
+{
+  "model": "questions.itemwritingreference",
+  "pk": 8,
+  "fields": {
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "title": "29.資料可信度與透明度",
+    "content": "辨別AI生成內容可能存在的錯誤、偏誤、幻覺與資訊過時之風險；評估公務人員對數位浮水印等內容鑑別機制之認知，確保具備辨識與防範深偽(Deepfake)造假及錯假訊息傳播之能力；並測驗其查核AI輔助決策結果之能力，以防範自動化偏誤，落實人機協作中之人類自主與監督。",
+    "sort_order": 29,
+    "is_active": true,
+    "created_at": "2026-06-09T13:29:51.672Z",
+    "updated_at": "2026-06-09T13:29:51.672Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 1,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "承辦人員利用生成式人工智慧（Generative AI）製作活動海報初稿，在正式對外發布前，下列何種做法最為適當？",
+    "choice_a": "直接發布AI產出的圖片，不需要檢查來源與授權",
+    "choice_b": "確認素材來源、授權條款、肖像權或第三方權利，並依機關規範揭露AI輔助情形",
+    "choice_c": "確認圖像未出現浮水印後，即可直接對外使用",
+    "choice_d": "將AI產出視為一定屬於機關所有，不需紀錄創作流程\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "使用生成式人工智慧製作海報，仍可能涉及著作權、肖像權或其他第三方權利。正式發布前，應確認素材來源與授權範圍，並依機關規範揭露 AI 輔助情形。圖片沒有浮水印，不代表可直接使用；AI 產出也不當然歸機關所有。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "certification_note": "對應之智慧財產權、AI倫理原則等內容",
+    "classification_basis": "AI 生成海報對外發布前須檢查授權與第三方權利，屬智財實務。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:09:27.403Z",
+    "updated_at": "2026-06-09T09:09:27.403Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 2,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "某機關請生成式人工智慧（Generative AI）協助整理政府採購案的需求說明書文字，卻發現產出內容與網路現有範本高度相似。此時承辦人員最妥適的處理方式為何？",
+    "choice_a": "只要範本已公開於網路，即可完整複製使用",
+    "choice_b": "只要文字由 AI 產出，即可直接納入採購文件",
+    "choice_c": "查核來源與利用條件，必要時改寫並留存編修紀錄",
+    "choice_d": "只要文件尚未公告，即可省略權利查核程序\"",
+    "answer": "C",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "生成式人工智慧產出的文字若與既有範本高度相似，仍可能涉及著作權或利用條件問題。承辦人員應先查核來源、授權或可利用範圍，必要時進行實質改寫，並留存查核與編修紀錄。網路公開不代表可任意複製，AI 產出也不當然排除法律風險。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "certification_note": "對應之智慧財產權、AI倫理原則等內容",
+    "classification_basis": "AI 產出疑似重製既有文字時，需判斷來源、授權與編修處理。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:10:03.551Z",
+    "updated_at": "2026-06-09T09:12:50.218Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 3,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "機關同仁利用生成式人工智慧（Generative AI）產出簡報示意圖，下列何種做法最能降低智慧財產權風險？",
+    "choice_a": "要求 AI 重製特定受保護插畫作品的構圖與細節",
+    "choice_b": "選用使用規範明確的平台，並檢查產出內容是否涉及第三方權利",
+    "choice_c": "將網路圖片提供給 AI 重製後，即視為全新創作",
+    "choice_d": "因僅供內部會議使用，無須確認利用規範\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "使用生成式人工智慧產出圖像時，仍可能涉及著作權或其他第三方權利。機關同仁應選用使用規範明確的平台，並在使用前檢查產出內容是否涉及受保護作品。要求重製特定作品、將網路圖片重製後直接視為新創作，或因內部使用而省略查核，都可能產生法律風險。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "certification_note": "對應之智慧財產權、AI倫理原則等內容",
+    "classification_basis": "AI 圖像使用須避免重製受保護作品並檢視第三方權利。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:10:32.187Z",
+    "updated_at": "2026-06-09T09:12:35.968Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 4,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "承辦採購業務者想請外部生成式人工智慧（Generative AI）摘要依法仍應保密的底價與評選委員名單，下列何者正確？",
+    "choice_a": "僅供摘要使用，即可直接輸入",
+    "choice_b": "不應輸入未經機關核准的外部 AI 服務，以避免機敏資訊外洩",
+    "choice_c": "刪除部分姓名後，即可輸入其餘資料",
+    "choice_d": "輸入後不對外公開，即無須留存使用紀錄\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "依法仍應保密的採購底價與評選委員名單，不應輸入未經機關核准的外部生成式 AI 服務。即使僅用於摘要，仍可能造成機敏資訊外洩。承辦人員應遵循採購保密、資訊安全及生成式 AI 使用規範，並依機關要求留存必要紀錄。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "依法保密之採購資訊不得任意輸入外部 AI，兼涉保密義務與資安。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:11:20.650Z",
+    "updated_at": "2026-06-09T09:11:20.650Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 5,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "機關使用人工智慧分析補助申請資料時，發現特定地區或群體的案件較常被列為低優先。下列處理方式何者最符合 AI 倫理原則？",
+    "choice_a": "依整體準確率達標為由，繼續沿用分類結果",
+    "choice_b": "檢視偏誤來源與公平性，必要時修正設計並加入人工覆核",
+    "choice_c": "移除不利結果紀錄，以避免產生後續爭議",
+    "choice_d": "優先提升處理速度，暫不檢查不同群體的影響\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "人工智慧分析結果若使特定地區或群體較常處於不利位置，可能反映訓練資料、分類規則或模型設計存在偏誤。補助案件可能影響民眾權益，因此機關應檢視差別影響與公平性，必要時修正資料、規則或模型，並保留人工覆核機制，以避免不公平結果持續發生。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "certification_note": "對應之智慧財產權、AI倫理原則等內容",
+    "classification_basis": "模型結果造成群體不利影響時須檢視公平性、偏誤與人類監督。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:12:07.628Z",
+    "updated_at": "2026-06-09T09:12:20.372Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 6,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "下列何者是人工智慧增強資料隱私的主要方式？",
+    "choice_a": "採取完全不收集資料的策略",
+    "choice_b": "執行自動威脅檢測",
+    "choice_c": "僅單純增加數據處理的透明度",
+    "choice_d": "降低對敏感資料的加密強度\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "人工智慧可透過自動化的威脅檢測系統，即時辨識並攔截潛在的隱私侵犯行為或異常存取模式，從而保護個人資料免於惡意攻擊。雖然減少資料收集與增加透明度也是隱私保護的環節，但 AI 在技術層面最具主動性與代表性的貢獻是強化了防禦機制。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "考查人工智慧於威脅偵測與資料保護的安全防護用途。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:14:36.251Z",
+    "updated_at": "2026-06-09T09:14:36.251Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 7,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "企業或機構在部署人工智慧系統時，針對資料隱私 (Data Privacy) 所面臨的主要風險為何？",
+    "choice_a": "資料濫用與敏感資訊推論風險",
+    "choice_b": "模型偏誤與差別待遇風險",
+    "choice_c": "錯誤生成與虛構內容風險",
+    "choice_d": "系統中斷與服務可用性風險\"",
+    "answer": "A",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "人工智慧系統若不當蒐集或利用個人資料，或透過資料分析推知當事人未主動提供的敏感資訊，可能侵害資料隱私與個人權益。模型偏誤主要涉及公平性問題；錯誤生成屬於內容可靠性問題；系統中斷則屬於服務可用性問題。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "辨識外部生成式 AI 輸入個資之明確資安與法遵風險。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:15:13.823Z",
+    "updated_at": "2026-06-09T09:15:13.823Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 8,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "人工智慧 (Artificial Intelligence, AI) 大量蒐集並分析可識別個人的行為資料，若缺乏管理，最可能造成什麼問題？\nA: 隱私侵害與資料濫用\nB: 網路速度自動提升\nC: 輸出內容一定更準確\nD: 免除資料保護責任\"",
+    "choice_a": "隱私侵害與資料濫用",
+    "choice_b": "網路速度自動提升",
+    "choice_c": "輸出內容一定更準確",
+    "choice_d": "免除資料保護責任\"",
+    "answer": "A",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "可識別個人的資料若未妥善管理，可能發生未授權使用、外洩或隱私侵害。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "以一般資料隱私題型，辨識 AI 大量分析個人資料的風險。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:19:13.495Z",
+    "updated_at": "2026-06-09T12:57:51.508Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 9,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "組織開發或使用人工智慧系統處理個人資料時，下列何種做法有助於降低隱私風險？\nA: 完全禁止 AI 處理任何個人資料\nB: 未經評估即刪除所有蒐集資料\nC: 採用差分隱私 (Differential Privacy, DP) 等保護措施，並進行隱私影響評估 (Privacy Impact Assessment, PIA)\nD: 將所有資料處理細節公開於網路供外界檢視\"",
+    "choice_a": "完全禁止 AI 處理任何個人資料",
+    "choice_b": "未經評估即刪除所有蒐集資料",
+    "choice_c": "採用差分隱私 (Differential Privacy, DP) 等保護措施，並進行隱私影響評估 (Privacy Impact Assessment, PIA)",
+    "choice_d": "將所有資料處理細節公開於網路供外界檢視\"",
+    "answer": "C",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "人工智慧系統若處理個人資料，應先辨識資料蒐集、利用與分享可能造成的隱私風險，並採取適當保護措施。差分隱私 (Differential Privacy, DP) 可降低由分析結果推知特定個人資訊的風險；隱私影響評估 (Privacy Impact Assessment, PIA) 則有助於在系統導入或使用前檢視隱私風險及因應措施。這些做法可降低風險，但不代表能完全消除隱私問題或完全不影響資料效用。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "將個資保護與資料治理措施套用於 AI 訓練或檢索情境。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:19:38.086Z",
+    "updated_at": "2026-06-09T12:57:51.508Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 10,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "人工智慧處理個人資料時，資料保護的主要目標為何？\nA: 避免未授權揭露或不當利用\nB: 儘可能擴大資料共享\nC: 讓模型記住完整身分資訊\nD: 增加資料蒐集欄位\"",
+    "choice_a": "避免未授權揭露或不當利用",
+    "choice_b": "儘可能擴大資料共享",
+    "choice_c": "讓模型記住完整身分資訊",
+    "choice_d": "增加資料蒐集欄位\"",
+    "answer": "A",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "個人資料保護的核心在於避免未授權揭露、不當利用或其他侵害當事人權益的情形。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "以一般個資保護題型，辨識 AI 應用中的資料保護目的。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:20:10.760Z",
+    "updated_at": "2026-06-09T12:57:51.504Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 11,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "在機器學習(Machine Learning, ML) 過程中，下列何種措施最有助於降低資料外洩與隱私侵害風險？\nA: 壓縮資料檔案大小\nB: 採用資料加密與隱私保護技術\nC: 任意減少訓練資料數量\nD: 提高資料傳輸速度\"",
+    "choice_a": "壓縮資料檔案大小",
+    "choice_b": "採用資料加密與隱私保護技術",
+    "choice_c": "任意減少訓練資料數量",
+    "choice_d": "提高資料傳輸速度\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "機器學習可能涉及敏感資料處理，採用資料加密與隱私保護技術，可降低資料外洩或敏感資訊被推知的風險。例如，差分隱私 (Differential Privacy, DP) 可降低個人資訊被推知的可能性；同態加密 (Homomorphic Encryption, HE) 則可支援對加密資料進行運算。資料壓縮、減少資料量或提升傳輸速度，並非直接的隱私保護措施。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "以一般機器學習資料安全題型，評量基本防護措施。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:20:49.561Z",
+    "updated_at": "2026-06-09T12:57:51.488Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 12,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "差分隱私 (Differential Privacy, DP) 技術應用於機器學習時，主要功能為何？\nA: 修正資料中的分類偏誤\nB: 提升模型訓練的運算效率\nC: 降低分析結果揭露個人資訊的風險\nD: 補齊資料中的缺漏欄位\"",
+    "choice_a": "修正資料中的分類偏誤",
+    "choice_b": "提升模型訓練的運算效率",
+    "choice_c": "降低分析結果揭露個人資訊的風險",
+    "choice_d": "補齊資料中的缺漏欄位\"",
+    "answer": "C",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "差分隱私 (Differential Privacy, DP) 會透過加入經控制的隨機雜訊等方式，降低從資料分析結果或模型輸出推知特定個人資訊的風險，同時盡可能保留資料的分析價值。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "以一般隱私強化技術題型，理解差分隱私的目的。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:21:41.635Z",
+    "updated_at": "2026-06-09T12:57:51.488Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 13,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "聯邦學習 (Federated Learning, FL) 如何協助降低機器學習中的資料隱私風險？\nA: 在各端本地訓練模型，僅彙整模型更新而不集中傳送原始資料\nB: 將所有原始資料加密後集中傳送至同一伺服器訓練\nC: 複製各端資料並建立多份中央備份\nD: 定期刪除本地資料，以取代模型訓練流程\"",
+    "choice_a": "在各端本地訓練模型，僅彙整模型更新而不集中傳送原始資料",
+    "choice_b": "將所有原始資料加密後集中傳送至同一伺服器訓練",
+    "choice_c": "複製各端資料並建立多份中央備份",
+    "choice_d": "定期刪除本地資料，以取代模型訓練流程\"",
+    "answer": "A",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "聯邦學習 (Federated Learning, FL) 讓各端使用本地資料訓練模型，再將模型更新彙整至中央系統，而不集中傳送原始資料，因此可降低原始資料外洩的風險。不過，模型更新仍可能暴露部分資訊，實務上可搭配差分隱私 (Differential Privacy, DP)、安全聚合 (Secure Aggregation) 或加密技術進一步提升隱私保護。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "以一般隱私保護技術題型，理解聯合學習的運作概念。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:22:10.143Z",
+    "updated_at": "2026-06-09T12:57:51.488Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 14,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "涉及境外個人資料處理的人工智慧 (Artificial Intelligence, AI) 服務，瞭解 GDPR、CCPA 等隱私規範主要有助於何事？\nA: 選擇顯示器解析度\nB: 判斷資料處理義務與當事人權利\nC: 免除機關採購程序\nD: 不再進行資安評估\"",
+    "choice_a": "選擇顯示器解析度",
+    "choice_b": "判斷資料處理義務與當事人權利",
+    "choice_c": "免除機關採購程序",
+    "choice_d": "不再進行資安評估\"",
+    "answer": "B",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "境外資料處理可能涉及當地隱私規範，瞭解其要求有助於管理資料處理責任與保障當事人權利。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI法規與資安風險管理",
+    "certification_note": "對應之AI安全、法規規範等內容",
+    "classification_basis": "辨識國際隱私規範與 AI 資料處理合規關係。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:22:39.959Z",
+    "updated_at": "2026-06-09T12:57:51.488Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 15,
+  "fields": {
+    "type_option": 1,
+    "status_option": 11,
+    "original_domain": "資料隱私、資料安全與合規",
+    "stem": "以帶有偏差且含個人資料的資料集訓練人工智慧 (Artificial Intelligence, AI)，可能造成哪項結果？\nA: 同時增加不公平輸出與隱私風險\nB: 自動消除偏差\nC: 使資料不再敏感\nD: 免除資料管理要求\"",
+    "choice_a": "同時增加不公平輸出與隱私風險",
+    "choice_b": "自動消除偏差",
+    "choice_c": "使資料不再敏感",
+    "choice_d": "免除資料管理要求\"",
+    "answer": "A",
+    "revised_stem": "",
+    "revised_choice_a": "",
+    "revised_choice_b": "",
+    "revised_choice_c": "",
+    "revised_choice_d": "",
+    "revised_answer": "",
+    "revised_explanation": "偏差資料可能導致不公平結果；若同時含有個人資料，也可能擴大隱私與權益風險。",
+    "difficulty": "基礎",
+    "main_dimension": "AI政策法制",
+    "sub_dimension": "AI應用下的倫理準則與智慧財產權實務",
+    "certification_note": "對應之智慧財產權、AI倫理原則等內容",
+    "classification_basis": "以一般倫理與隱私複合題型，評量偏差資料的影響。",
+    "is_completed": false,
+    "completed_at": null,
+    "created_at": "2026-06-09T09:23:12.485Z",
+    "updated_at": "2026-06-09T12:57:51.488Z"
+  }
+}
+]

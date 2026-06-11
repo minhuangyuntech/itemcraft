@@ -40,6 +40,27 @@
 
   <section class="content-panel mt-4">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+      <div>
+        <h2 class="h5 mb-1">資料匯入與匯出</h2>
+        <p class="text-secondary mb-0">匯出題庫、下拉選單、參考來源與命題參考資料，方便搬到另一個開發環境。</p>
+      </div>
+      <a class="btn btn-sm btn-primary" href="{% url 'questions:export_data_bundle' %}">匯出資料包</a>
+    </div>
+    <form method="post" action="{% url 'questions:import_data_bundle' %}" enctype="multipart/form-data" class="row g-3 align-items-end">
+      {% csrf_token %}
+      <div class="col-lg-8">
+        {{ data_import_form.file.label_tag }}
+        {{ data_import_form.file }}
+      </div>
+      <div class="col-lg-4">
+        <button class="btn btn-outline-primary w-100" onclick="return confirm('匯入前會自動備份目前資料庫。確定要匯入？');">匯入資料包</button>
+      </div>
+    </form>
+    <div class="form-text mt-2">預設資料包不包含 AI API Key、備份紀錄與 AI 操作紀錄。</div>
+  </section>
+
+  <section class="content-panel mt-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
       <h2 class="h5 mb-0">資料庫備份與還原</h2>
       <form method="post" action="{% url 'questions:create_backup' %}">
         {% csrf_token %}
