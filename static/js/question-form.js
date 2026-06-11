@@ -19,9 +19,11 @@
   }
 
   function splitOptions(text) {
-    const matches = Array.from(text.matchAll(/(^|\n|\r|\s)([ABCD])[\.\)、）]\s*/g));
-    const labels = matches.map((match) => match[2]);
+    const markerPattern = /(?:^|[\r\n])\s*([ABCD])[\.\)、）:：]\s*/g;
+    const matches = Array.from(text.matchAll(markerPattern));
+    const labels = matches.map((match) => match[1]);
     const uniqueLabels = new Set(labels);
+
     if (matches.length < 4 || uniqueLabels.size < 4) {
       return null;
     }
@@ -36,12 +38,10 @@
     };
 
     matches.forEach((match, index) => {
-      const label = match[2];
+      const label = match[1];
       const start = match.index + match[0].length;
       const end = index + 1 < matches.length ? matches[index + 1].index : text.length;
-      if (Object.prototype.hasOwnProperty.call(result, label)) {
-        result[label] = text.slice(start, end).trim();
-      }
+      result[label] = text.slice(start, end).trim();
     });
 
     return result;
@@ -61,7 +61,7 @@
       hideMessage();
       const parsed = splitOptions(stem.value);
       if (!parsed) {
-        showMessage("找不到完整的 A-D 選項，請確認內容中包含 A.、B.、C.、D.。");
+        showMessage("找不到完整的 A-D 選項，請確認內容中包含 A.、A:、A：或 A、等格式。");
         return;
       }
 
@@ -70,6 +70,7 @@
       choiceB.value = parsed.B;
       choiceC.value = parsed.C;
       choiceD.value = parsed.D;
+      showMessage("已拆解 A-D 選項，並已從題幹移除選項內容。");
     });
   }
 

@@ -121,7 +121,7 @@
                   <td class="text-truncate table-title">{{ question.stem|default:"未填題幹" }}</td>
                   <td>{{ question.type_option|default:"-" }}</td>
                   <td>{{ question.status_option|default:"-" }}</td>
-                  <td><a href="{% url 'questions:question_update' question.pk %}">編輯</a></td>
+                  <td><a href="{% url 'questions:question_detail' question.pk %}">瀏覽</a></td>
                 </tr>
               {% empty %}
                 <tr><td colspan="4" class="text-secondary">尚未建立題目。</td></tr>

@@ -12,6 +12,7 @@ urlpatterns = [
     path("accounts/logout/", auth_views.LogoutView.as_view(next_page="questions:home"), name="logout"),
     path("questions/", views.question_list, name="question_list"),
     path("questions/new/", views.question_create, name="question_create"),
+    path("questions/<int:pk>/", views.question_detail, name="question_detail"),
     path("questions/<int:pk>/edit/", views.question_update, name="question_update"),
     path("import/", views.import_questions_view, name="import"),
     path("references/", views.references, name="references"),

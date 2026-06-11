@@ -23,6 +23,9 @@ COLUMN_ALIASES = {
 }
 
 
+OPTION_MARKER_PATTERN = re.compile(r"(?:^|[\r\n])\s*(?P<label>[ABCD])[\.\)、）:：]\s*", re.IGNORECASE)
+
+
 def normalize_header(value):
     return re.sub(r"[\s　()（）]", "", str(value or "")).lower()
 
@@ -55,9 +58,9 @@ def split_question_block(text):
     if not text:
         return {"stem": "", "A": "", "B": "", "C": "", "D": ""}
 
-    pattern = re.compile(r"(?P<label>[ABCD])[\.\)、）]\s*", re.IGNORECASE)
-    matches = list(pattern.finditer(text))
-    if not matches:
+    matches = list(OPTION_MARKER_PATTERN.finditer(text))
+    labels = {match.group("label").upper() for match in matches}
+    if len(labels) < 4:
         return {"stem": text, "A": "", "B": "", "C": "", "D": ""}
 
     stem = text[: matches[0].start()].strip()
@@ -66,7 +69,8 @@ def split_question_block(text):
         label = match.group("label").upper()
         start = match.end()
         end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
-        parts[label] = text[start:end].strip()
+        if label in parts:
+            parts[label] = text[start:end].strip()
     return parts
 
 

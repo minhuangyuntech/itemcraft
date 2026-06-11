@@ -108,6 +108,38 @@ body {
   font-size: .875rem;
 }
 
+.question-stem {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.question-options .list-group-item {
+  line-height: 1.6;
+}
+
+.question-options .active-answer {
+  background: #e8f7ee;
+  border-color: #b7e4c7;
+}
+
+.detail-list {
+  margin-bottom: 0;
+}
+
+.detail-list dt {
+  color: #64748b;
+  font-size: .85rem;
+  margin-top: .75rem;
+}
+
+.detail-list dt:first-child {
+  margin-top: 0;
+}
+
+.detail-list dd {
+  margin-bottom: 0;
+}
+
 label {
   font-weight: 600;
   margin-bottom: .35rem;

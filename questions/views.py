@@ -165,6 +165,35 @@ def question_create(request):
 
 
 @staff_member_required(login_url="questions:login")
+def question_detail(request, pk):
+    ensure_default_options()
+    question = get_object_or_404(
+        Question.objects.select_related("type_option", "status_option"),
+        pk=pk,
+    )
+    nav_scope = request.GET.get("nav_scope")
+    if nav_scope != "sub_dimension":
+        nav_scope = "all"
+
+    nav_queryset = Question.objects.all()
+    if nav_scope == "sub_dimension":
+        nav_queryset = nav_queryset.filter(sub_dimension=question.sub_dimension)
+
+    previous_question = nav_queryset.filter(pk__lt=question.pk).order_by("-pk").first()
+    next_question = nav_queryset.filter(pk__gt=question.pk).order_by("pk").first()
+    return render(
+        request,
+        "questions/question_detail.html",
+        {
+            "question": question,
+            "previous_question": previous_question,
+            "next_question": next_question,
+            "nav_scope": nav_scope,
+        },
+    )
+
+
+@staff_member_required(login_url="questions:login")
 def question_update(request, pk):
     ensure_default_options()
     question = get_object_or_404(Question, pk=pk)

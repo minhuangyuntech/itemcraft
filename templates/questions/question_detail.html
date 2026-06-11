@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}題目 #{{ question.id }} - ItemCraft{% endblock %}
+{% block content %}
+<div class="page-shell">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+    <div>
+      <h1 class="h3 mb-1">題目 #{{ question.id }}</h1>
+      <div class="d-flex flex-wrap gap-2">
+        <span class="badge text-bg-light border">{{ question.type_option|default:"未分類" }}</span>
+        <span class="badge text-bg-light border">{{ question.status_option|default:"無狀態" }}</span>
+        <span class="badge text-bg-light border">{{ question.difficulty|default:"未設定難易度" }}</span>
+        {% if question.is_completed %}
+          <span class="badge text-bg-success">已完成鎖定</span>
+        {% else %}
+          <span class="badge text-bg-secondary">可編輯</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+      <form method="get" class="d-flex align-items-center gap-2">
+        <label class="form-label mb-0 small text-muted" for="nav-scope">導覽範圍</label>
+        <select class="form-select form-select-sm question-nav-scope" id="nav-scope" name="nav_scope" onchange="this.form.submit()">
+          <option value="all" {% if nav_scope == "all" %}selected{% endif %}>不過濾</option>
+          <option value="sub_dimension" {% if nav_scope == "sub_dimension" %}selected{% endif %}>次層面</option>
+        </select>
+      </form>
+      {% if previous_question %}
+        <a class="btn btn-outline-primary" href="{% url 'questions:question_detail' previous_question.pk %}?nav_scope={{ nav_scope }}">上一題</a>
+      {% else %}
+        <span class="btn btn-outline-primary disabled" aria-disabled="true">上一題</span>
+      {% endif %}
+      {% if next_question %}
+        <a class="btn btn-outline-primary" href="{% url 'questions:question_detail' next_question.pk %}?nav_scope={{ nav_scope }}">下一題</a>
+      {% else %}
+        <span class="btn btn-outline-primary disabled" aria-disabled="true">下一題</span>
+      {% endif %}
+      <a class="btn btn-outline-secondary" href="{% url 'questions:question_list' %}">返回題庫</a>
+      <a class="btn btn-primary {% if question.is_completed %}disabled{% endif %}" href="{% url 'questions:question_update' question.pk %}" {% if question.is_completed %}aria-disabled="true"{% endif %}>編輯</a>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <section class="content-panel mb-4">
+        <h2 class="h5 mb-3">題目內容</h2>
+        <div class="question-stem mb-3">{{ question.stem|linebreaksbr|default:"未填題幹" }}</div>
+        <div class="list-group question-options">
+          <div class="list-group-item {% if question.answer == 'A' %}active-answer{% endif %}">
+            <strong>A.</strong> {{ question.choice_a|linebreaksbr }}
+          </div>
+          <div class="list-group-item {% if question.answer == 'B' %}active-answer{% endif %}">
+            <strong>B.</strong> {{ question.choice_b|linebreaksbr }}
+          </div>
+          <div class="list-group-item {% if question.answer == 'C' %}active-answer{% endif %}">
+            <strong>C.</strong> {{ question.choice_c|linebreaksbr }}
+          </div>
+          <div class="list-group-item {% if question.answer == 'D' %}active-answer{% endif %}">
+            <strong>D.</strong> {{ question.choice_d|linebreaksbr }}
+          </div>
+        </div>
+      </section>
+
+      <section class="content-panel">
+        <h2 class="h5 mb-3">解析</h2>
+        <div>{{ question.revised_explanation|linebreaksbr|default:"尚未填寫解析。" }}</div>
+      </section>
+    </div>
+
+    <div class="col-lg-4">
+      <section class="content-panel mb-4">
+        <h2 class="h5 mb-3">答案與狀態</h2>
+        <dl class="detail-list">
+          <dt>答案</dt>
+          <dd>{{ question.answer|default:"-" }}</dd>
+          <dt>完成狀態</dt>
+          <dd>{% if question.is_completed %}已完成鎖定{% else %}可編輯{% endif %}</dd>
+          <dt>建立時間</dt>
+          <dd>{{ question.created_at|date:"Y-m-d H:i" }}</dd>
+          <dt>更新時間</dt>
+          <dd>{{ question.updated_at|date:"Y-m-d H:i" }}</dd>
+          {% if question.completed_at %}
+            <dt>完成時間</dt>
+            <dd>{{ question.completed_at|date:"Y-m-d H:i" }}</dd>
+          {% endif %}
+        </dl>
+      </section>
+
+      <section class="content-panel">
+        <h2 class="h5 mb-3">分類資訊</h2>
+        <dl class="detail-list">
+          <dt>原AIE領域範疇</dt>
+          <dd>{{ question.original_domain|default:"-" }}</dd>
+          <dt>主層面</dt>
+          <dd>{{ question.main_dimension|default:"-" }}</dd>
+          <dt>次層面</dt>
+          <dd>{{ question.sub_dimension|default:"-" }}</dd>
+          <dt>認證內容說明</dt>
+          <dd>{{ question.certification_note|linebreaksbr|default:"-" }}</dd>
+          <dt>分類依據</dt>
+          <dd>{{ question.classification_basis|linebreaksbr|default:"-" }}</dd>
+        </dl>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

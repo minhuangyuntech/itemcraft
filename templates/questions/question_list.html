@@ -52,7 +52,11 @@
           {% for question in questions %}
             <tr>
               <td class="text-secondary table-number">{{ forloop.counter }}</td>
-              <td class="text-truncate table-title">{{ question.stem|default:"未填題幹" }}</td>
+              <td class="text-truncate table-title">
+                <a class="link-dark text-decoration-none" href="{% url 'questions:question_detail' question.pk %}">
+                  {{ question.stem|default:"未填題幹" }}
+                </a>
+              </td>
               <td>{{ question.type_option|default:"-" }}</td>
               <td>{{ question.status_option|default:"-" }}</td>
               <td>
@@ -65,7 +69,9 @@
               <td>{{ question.answer|default:"-" }}</td>
               <td>{{ question.difficulty|default:"-" }}</td>
               <td class="small text-secondary">{{ question.updated_at|date:"Y-m-d H:i" }}</td>
-              <td><a class="btn btn-sm btn-outline-primary" href="{% url 'questions:question_update' question.pk %}">編輯</a></td>
+              <td>
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'questions:question_detail' question.pk %}">瀏覽</a>
+              </td>
             </tr>
           {% empty %}
             <tr><td colspan="9" class="text-secondary">沒有符合條件的題目。</td></tr>
