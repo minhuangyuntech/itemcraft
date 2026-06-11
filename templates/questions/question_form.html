@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title }} - ItemCraft{% endblock %}
+{% block content %}
+<div class="page-shell">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">{{ title }}</h1>
+    <a href="{% url 'questions:question_list' %}" class="btn btn-outline-secondary">返回題庫</a>
+  </div>
+
+  <form method="post" class="content-panel">
+    {% csrf_token %}
+    {% if question.is_completed %}
+      <div class="alert alert-success">此題目已標記完成並鎖定，不能再修改。</div>
+    {% endif %}
+
+    <section class="mb-4">
+      <h2 class="h5 mb-3">題目與解析</h2>
+      <div class="row g-3 mb-3">
+        <div class="col-md-3">{{ form.type_option.label_tag }}{{ form.type_option }}</div>
+        <div class="col-md-3">{{ form.status_option.label_tag }}{{ form.status_option }}</div>
+        <div class="col-md-3">{{ form.original_domain.label_tag }}{{ form.original_domain }}</div>
+        <div class="col-md-3">{{ form.difficulty.label_tag }}{{ form.difficulty }}</div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-1">
+          {{ form.stem.label_tag }}
+          <button class="btn btn-sm btn-outline-primary" type="button" id="split-original-options">
+            拆解 A-D 選項
+          </button>
+        </div>
+        {{ form.stem }}
+        <div class="form-text">可貼上包含 A. B. C. D. 的完整題目，再按「拆解 A-D 選項」。</div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-6">{{ form.choice_a.label_tag }}{{ form.choice_a }}</div>
+        <div class="col-md-6">{{ form.choice_b.label_tag }}{{ form.choice_b }}</div>
+        <div class="col-md-6">{{ form.choice_c.label_tag }}{{ form.choice_c }}</div>
+        <div class="col-md-6">{{ form.choice_d.label_tag }}{{ form.choice_d }}</div>
+        <div class="col-md-3">{{ form.answer.label_tag }}{{ form.answer }}</div>
+        <div class="col-12">{{ form.revised_explanation.label_tag }}{{ form.revised_explanation }}</div>
+      </div>
+      <div class="alert alert-warning d-none mt-3" id="split-original-message"></div>
+    </section>
+
+    <section>
+      <h2 class="h5 mb-3">分類資訊</h2>
+      <div class="row g-3">
+        <div class="col-md-6">{{ form.main_dimension.label_tag }}{{ form.main_dimension }}</div>
+        <div class="col-md-6">{{ form.sub_dimension.label_tag }}{{ form.sub_dimension }}</div>
+        <div class="col-12">{{ form.certification_note.label_tag }}{{ form.certification_note }}</div>
+        <div class="col-12">{{ form.classification_basis.label_tag }}{{ form.classification_basis }}</div>
+        <div class="col-12">
+          <div class="form-check">
+            {{ form.is_completed }}
+            {{ form.is_completed.label_tag }}
+            <div class="form-text">標記完成後，此題將不可再由人工或 AI 修改。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% if form.errors %}
+      <div class="alert alert-danger mt-3">{{ form.errors }}</div>
+    {% endif %}
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <a class="btn btn-outline-secondary" href="{% url 'questions:question_list' %}">取消</a>
+      <button class="btn btn-primary" {% if question.is_completed %}disabled{% endif %}>儲存</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/question-form.js' %}"></script>
+{% endblock %}

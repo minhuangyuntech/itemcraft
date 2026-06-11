@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}ItemCraft - AI 命題輔助系統{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <div class="home-hero__content">
+    <span class="eyebrow">AI-assisted item authoring</span>
+    <h1>ItemCraft</h1>
+    <p>整理題庫、匯入 Excel/CSV、管理引用來源，並在管理者登入後開始製題。</p>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="btn btn-primary btn-lg" href="{% url 'questions:login' %}">管理者登入</a>
+      <a class="btn btn-outline-secondary btn-lg" href="{% url 'admin:index' %}">Django Admin</a>
+    </div>
+  </div>
+</section>
+
+<section class="page-shell mt-4">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="content-panel h-100">
+        <h2 class="h5">題目結構化管理</h2>
+        <p class="text-secondary mb-0">題幹、四個選項、答案、解析與分類欄位分開儲存，方便後續 AI 輔助與匯出。</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="content-panel h-100">
+        <h2 class="h5">Excel / CSV 匯入</h2>
+        <p class="text-secondary mb-0">支援載入既有檔案，依欄位名稱自動對應並整合到 SQLite 題庫。</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="content-panel h-100">
+        <h2 class="h5">引用來源準備</h2>
+        <p class="text-secondary mb-0">可先建立法規網址、引用資訊與參考檔案，供後續 AI 生成題目時使用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

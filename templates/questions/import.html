@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}匯入 - ItemCraft{% endblock %}
+{% block content %}
+<div class="page-shell">
+  <h1 class="h3 mb-3">匯入 Excel / CSV</h1>
+  <section class="content-panel mb-4">
+    <form method="post" enctype="multipart/form-data" class="row g-3 align-items-end">
+      {% csrf_token %}
+      <div class="col-lg-8">{{ form.file.label_tag }}{{ form.file }}</div>
+      <div class="col-lg-4"><button class="btn btn-primary w-100">上傳並自動整合</button></div>
+    </form>
+  </section>
+
+  {% if job %}
+    <section class="content-panel mb-4">
+      <h2 class="h5">匯入結果</h2>
+      <p class="mb-2">{{ job.file_name }}：成功 {{ job.imported_rows }} / {{ job.total_rows }}，錯誤 {{ job.error_rows }}</p>
+      <div class="small text-secondary">欄位對應：
+        {% for key, value in mapping.items %}
+          <span class="badge text-bg-light border">{{ key }} → {{ value|default:"未對應" }}</span>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="content-panel">
+    <h2 class="h5 mb-3">最近匯入紀錄</h2>
+    <table class="table">
+      <thead><tr><th>檔案</th><th>總筆數</th><th>成功</th><th>錯誤</th><th>時間</th></tr></thead>
+      <tbody>
+        {% for job in jobs %}
+          <tr><td>{{ job.file_name }}</td><td>{{ job.total_rows }}</td><td>{{ job.imported_rows }}</td><td>{{ job.error_rows }}</td><td>{{ job.created_at|date:"Y-m-d H:i" }}</td></tr>
+        {% empty %}
+          <tr><td colspan="5" class="text-secondary">尚無匯入紀錄。</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}
+

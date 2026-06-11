@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}設定 - ItemCraft{% endblock %}
+{% block content %}
+<div class="page-shell">
+  <h1 class="h3 mb-3">設定</h1>
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <section class="content-panel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">{% if editing_ai %}編輯 AI API{% else %}新增 AI API{% endif %}</h2>
+          {% if editing_ai %}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'questions:settings' %}">新增另一個</a>
+          {% endif %}
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          {% if editing_ai %}<input type="hidden" name="ai_id" value="{{ editing_ai.id }}">{% endif %}
+          {% for model_id in preview_model_ids %}
+            <input type="hidden" name="runtime_model_ids" value="{{ model_id }}">
+          {% endfor %}
+          {{ ai_form.as_p }}
+          <div class="d-flex flex-wrap gap-2">
+            <button name="preview_models" value="1" class="btn btn-outline-primary">載入 Model</button>
+            <button name="save_ai" class="btn btn-primary">儲存 AI API</button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <div class="col-lg-6">
+      <section class="content-panel">
+        <h2 class="h5 mb-3">新增下拉選單項目</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ option_form.as_p }}
+          <button name="save_option" class="btn btn-primary">新增選項</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <section class="content-panel mt-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+      <h2 class="h5 mb-0">資料庫備份與還原</h2>
+      <form method="post" action="{% url 'questions:create_backup' %}">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-primary">立即備份</button>
+      </form>
+    </div>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead><tr><th>編號</th><th>原因</th><th>建立者</th><th>時間</th><th></th></tr></thead>
+        <tbody>
+          {% for backup in backups %}
+            <tr>
+              <td>#{{ backup.id }}</td>
+              <td>{{ backup.reason }}</td>
+              <td>{{ backup.created_by|default:"-" }}</td>
+              <td class="small text-secondary">{{ backup.created_at|date:"Y-m-d H:i" }}</td>
+              <td>
+                <form method="post" action="{% url 'questions:restore_backup' backup.id %}" onsubmit="return confirm('確定要還原此備份？目前資料庫會被備份內容覆蓋。');">
+                  {% csrf_token %}
+                  <button class="btn btn-sm btn-outline-danger">還原</button>
+                </form>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="text-secondary">尚未建立備份。</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="content-panel mt-4">
+    <h2 class="h5 mb-3">AI API 來源</h2>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>名稱</th>
+            <th>Provider</th>
+            <th>Base URL</th>
+            <th>預設模型</th>
+            <th>已載入模型</th>
+            <th>狀態</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for setting in ai_settings %}
+            <tr>
+              <td class="fw-medium">{{ setting.name }}</td>
+              <td>{{ setting.provider }}</td>
+              <td class="small text-secondary">{{ setting.base_url|default:"OpenAI 官方預設" }}</td>
+              <td>{{ setting.model|default:"-" }}</td>
+              <td>
+                <span class="badge text-bg-light border">{{ setting.models.all|length }}</span>
+              </td>
+              <td>
+                {% if setting.is_active %}
+                  <span class="badge text-bg-success">啟用</span>
+                {% else %}
+                  <span class="badge text-bg-secondary">停用</span>
+                {% endif %}
+              </td>
+              <td>
+                <div class="d-flex flex-wrap gap-2 justify-content-end">
+                  <a class="btn btn-sm btn-outline-secondary" href="{% url 'questions:settings' %}?edit_ai={{ setting.id }}">編輯</a>
+                  <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="ai_id" value="{{ setting.id }}">
+                    <button class="btn btn-sm btn-outline-primary" name="test_ai" value="1">測試</button>
+                  </form>
+                  <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="ai_id" value="{{ setting.id }}">
+                    <button class="btn btn-sm btn-outline-primary" name="load_models" value="1">載入 Model</button>
+                  </form>
+                  <form method="post" onsubmit="return confirm('確定要刪除此 AI API 來源？這會一併刪除已載入的模型。');">
+                    {% csrf_token %}
+                    <input type="hidden" name="ai_id" value="{{ setting.id }}">
+                    <button class="btn btn-sm btn-outline-danger" name="delete_ai" value="1">刪除</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            {% if setting.models.all %}
+              <tr>
+                <td></td>
+                <td colspan="6">
+                  <div class="small text-secondary mb-1">可用模型</div>
+                  {% for model in setting.models.all %}
+                    {% if model.is_active %}
+                      <span class="badge rounded-pill text-bg-light border me-1 mb-1">{{ model.model_id }}</span>
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endif %}
+          {% empty %}
+            <tr><td colspan="7" class="text-secondary">尚未建立 AI API 來源。</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="content-panel mt-4">
+    <h2 class="h5 mb-3">目前下拉選單</h2>
+    <div class="row g-3">
+      {% for group in option_groups %}
+        <div class="col-md-6">
+          <div class="border rounded p-3 h-100">
+            <div class="fw-semibold mb-2">{{ group.name }}</div>
+            {% for item in group.items.all %}
+              {% if item.is_active %}
+                <span class="badge rounded-pill text-bg-light border me-1 mb-1">{{ item.name }}</span>
+              {% endif %}
+            {% empty %}
+              <span class="text-secondary small">尚無選項</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

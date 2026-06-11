@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}參考資料 - ItemCraft{% endblock %}
+{% block content %}
+<div class="page-shell">
+  <h1 class="h3 mb-3">參考資料</h1>
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <section class="content-panel">
+        <h2 class="h5 mb-3">新增來源網址</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ source_form.as_p }}
+          <button name="save_source" class="btn btn-primary">儲存來源</button>
+        </form>
+      </section>
+    </div>
+    <div class="col-lg-6">
+      <section class="content-panel">
+        <h2 class="h5 mb-3">上傳參考檔案</h2>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ file_form.as_p }}
+          <button name="save_file" class="btn btn-primary">上傳檔案</button>
+        </form>
+      </section>
+    </div>
+  </div>
+  <section class="content-panel mt-4">
+    <h2 class="h5 mb-3">已建立來源</h2>
+    {% for source in sources %}
+      <div class="border-bottom py-3">
+        <div class="fw-medium">{{ source.title }}</div>
+        {% if source.url %}<a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.url }}</a>{% endif %}
+        <div class="small text-secondary">{{ source.citation_note|linebreaksbr }}</div>
+      </div>
+    {% empty %}
+      <p class="text-secondary mb-0">尚未建立來源。</p>
+    {% endfor %}
+  </section>
+</div>
+{% endblock %}
+

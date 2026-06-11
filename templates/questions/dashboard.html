@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% block title %}ItemCraft 工作台{% endblock %}
+{% block content %}
+<div class="page-shell">
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+      <h1 class="h3 mb-1">命題工作台</h1>
+      <p class="text-secondary mb-0">管理題庫、匯入試題、整理引用來源，並透過 AI 協助命題與審題。</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-secondary" href="{% url 'questions:import' %}">匯入 Excel/CSV</a>
+      <a class="btn btn-primary" href="{% url 'questions:question_create' %}">新增題目</a>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="metric-panel">
+        <span class="metric-label">題目數</span>
+        <strong>{{ question_count }}</strong>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="metric-panel">
+        <span class="metric-label">參考來源/檔案</span>
+        <strong>{{ reference_count }}</strong>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="metric-panel">
+        <span class="metric-label">最近匯入</span>
+        <strong>{{ latest_imports|length }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <section class="content-panel mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+      <div>
+        <h2 class="h5 mb-1">AI 對話框</h2>
+        <p class="text-secondary mb-0">輸入命題、審題或改寫指令，並選擇 API 來源、模型與參考資料。</p>
+      </div>
+      <a class="btn btn-sm btn-outline-secondary" href="{% url 'questions:settings' %}">AI 設定</a>
+    </div>
+    <form method="post" class="row g-3" id="ai-command-form">
+      {% csrf_token %}
+      <div class="col-lg-7">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-1">
+          {{ ai_form.prompt.label_tag }}
+          <div class="d-flex align-items-center gap-2">
+            <span class="ai-thinking d-none" id="ai-thinking-indicator">
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              AI 思考中
+            </span>
+            <button class="btn btn-outline-danger btn-sm d-none" type="button" id="interrupt-ai-command">中斷</button>
+            <button class="btn btn-primary btn-sm" name="run_ai" value="1" id="run-ai-command">送出 AI 指令</button>
+          </div>
+        </div>
+        {{ ai_form.prompt }}
+        <div class="ai-response mt-3" id="ai-response-box">
+          <h3 class="h6">AI 回覆</h3>
+          {% if ai_response %}
+            <pre class="mb-0">{{ ai_response }}</pre>
+          {% else %}
+            <div class="text-secondary">AI 回覆會顯示在這裡。</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="mb-3">
+          {{ ai_form.api_setting.label_tag }}
+          {{ ai_form.api_setting }}
+        </div>
+        <div class="mb-3">
+          {{ ai_form.model.label_tag }}
+          {{ ai_form.model }}
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            {{ ai_form.reference_sources.label_tag }}
+            {{ ai_form.reference_sources }}
+            <div class="form-text">可按住 Ctrl 多選。</div>
+          </div>
+          <div class="col-md-6">
+            {{ ai_form.reference_files.label_tag }}
+            {{ ai_form.reference_files }}
+            <div class="form-text">可按住 Ctrl 多選。</div>
+          </div>
+        </div>
+        <div class="form-check mt-3">
+          {{ ai_form.allow_database_changes }}
+          {{ ai_form.allow_database_changes.label_tag }}
+          <div class="form-text">勾選後，AI 回覆若包含 JSON actions，系統會先備份再修改題庫；已完成題目不會被修改。</div>
+        </div>
+        <div class="form-check mt-3">
+          {{ ai_form.include_question_table }}
+          {{ ai_form.include_question_table.label_tag }}
+          <div class="form-text">勾選後，AI 會收到題庫資料表摘要，可依題目 ID 審題或產生修改建議。</div>
+        </div>
+        <div class="mt-2">
+          {{ ai_form.question_limit.label_tag }}
+          {{ ai_form.question_limit }}
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <section class="content-panel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">最近題目</h2>
+          <a href="{% url 'questions:question_list' %}" class="small">查看全部</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead><tr><th>題幹</th><th>類型</th><th>狀態</th><th></th></tr></thead>
+            <tbody>
+              {% for question in latest_questions %}
+                <tr>
+                  <td class="text-truncate table-title">{{ question.stem|default:"未填題幹" }}</td>
+                  <td>{{ question.type_option|default:"-" }}</td>
+                  <td>{{ question.status_option|default:"-" }}</td>
+                  <td><a href="{% url 'questions:question_update' question.pk %}">編輯</a></td>
+                </tr>
+              {% empty %}
+                <tr><td colspan="4" class="text-secondary">尚未建立題目。</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-4">
+      <section class="content-panel">
+        <h2 class="h5 mb-3">最近匯入</h2>
+        {% for job in latest_imports %}
+          <div class="border-bottom py-2">
+            <div class="fw-medium">{{ job.file_name }}</div>
+            <div class="small text-secondary">成功 {{ job.imported_rows }} / {{ job.total_rows }}，錯誤 {{ job.error_rows }}</div>
+          </div>
+        {% empty %}
+          <p class="text-secondary mb-0">尚無匯入紀錄。</p>
+        {% endfor %}
+      </section>
+    </div>
+  </div>
+</div>
+{{ ai_model_api_map|json_script:"ai-model-api-map" }}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const apiSelect = document.getElementById("id_api_setting");
+    const modelSelect = document.getElementById("id_model");
+    const modelApiMapEl = document.getElementById("ai-model-api-map");
+
+    if (!apiSelect || !modelSelect || !modelApiMapEl) return;
+
+    const modelApiMap = JSON.parse(modelApiMapEl.textContent);
+    const allOptions = Array.from(modelSelect.options).map((option) => ({
+      value: option.value,
+      text: option.text,
+      apiId: modelApiMap[option.value] || "",
+    }));
+
+    function refreshModels() {
+      const apiId = apiSelect.value;
+      const currentModel = modelSelect.value;
+      modelSelect.innerHTML = "";
+
+      const matchingOptions = allOptions.filter((option) => option.apiId === apiId);
+      if (!matchingOptions.length) {
+        modelSelect.add(new Option("此 API 來源尚未載入可用模型", ""));
+        modelSelect.disabled = true;
+        return;
+      }
+
+      modelSelect.disabled = false;
+      matchingOptions.forEach((option) => {
+        modelSelect.add(new Option(option.text, option.value));
+      });
+
+      if (matchingOptions.some((option) => option.value === currentModel)) {
+        modelSelect.value = currentModel;
+      } else {
+        modelSelect.selectedIndex = 0;
+      }
+    }
+
+    apiSelect.addEventListener("change", refreshModels);
+    refreshModels();
+
+    const aiForm = document.getElementById("ai-command-form");
+    const runButton = document.getElementById("run-ai-command");
+    const interruptButton = document.getElementById("interrupt-ai-command");
+    const thinkingIndicator = document.getElementById("ai-thinking-indicator");
+    const responseBox = document.getElementById("ai-response-box");
+    let activeController = null;
+
+    function setAiBusy(isBusy) {
+      if (runButton) runButton.disabled = isBusy;
+      if (interruptButton) interruptButton.classList.toggle("d-none", !isBusy);
+      if (thinkingIndicator) thinkingIndicator.classList.toggle("d-none", !isBusy);
+    }
+
+    if (interruptButton) {
+      interruptButton.addEventListener("click", function () {
+        if (activeController) {
+          activeController.abort();
+        }
+      });
+    }
+
+    if (aiForm && responseBox) {
+      aiForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        activeController = new AbortController();
+        setAiBusy(true);
+        responseBox.innerHTML = '<h3 class="h6">AI 回覆</h3><div class="text-secondary">AI 思考中，請稍候...</div>';
+
+        try {
+          const formData = new FormData(aiForm);
+          formData.set("run_ai", "1");
+          const response = await fetch(aiForm.action || window.location.href, {
+            method: "POST",
+            body: formData,
+            signal: activeController.signal,
+            headers: {"X-Requested-With": "fetch"},
+          });
+          const html = await response.text();
+          const nextDocument = new DOMParser().parseFromString(html, "text/html");
+          const nextResponseBox = nextDocument.getElementById("ai-response-box");
+          const nextMessages = nextDocument.querySelector(".message-stack");
+          const currentMessages = document.querySelector(".message-stack");
+
+          if (nextResponseBox) {
+            responseBox.innerHTML = nextResponseBox.innerHTML;
+          }
+          if (nextMessages) {
+            if (currentMessages) {
+              currentMessages.replaceWith(nextMessages);
+            } else {
+              document.querySelector("main").prepend(nextMessages);
+            }
+          }
+        } catch (error) {
+          if (error.name === "AbortError") {
+            responseBox.innerHTML = '<h3 class="h6">AI 回覆</h3><div class="text-secondary">已中斷 AI 工作。</div>';
+          } else {
+            responseBox.innerHTML = '<h3 class="h6">AI 回覆</h3><div class="text-danger">AI 請求發生錯誤，請稍後再試。</div>';
+          }
+        } finally {
+          activeController = null;
+          setAiBusy(false);
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}
